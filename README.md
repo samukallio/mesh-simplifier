@@ -1,5 +1,9 @@
 # Overview
 
+<p align="center">
+    <img src="https://github.com/samukallio/mesh-simplifier/blob/main/media/example.png?raw=true">
+</p>
+
 This is an efficient implementation of the mesh simplification algorithm presented in the paper
 "Surface Simplification Using Quadric Error Metrics" by Michael Garland and Paul S. Heckbert.
 The algorithm iteratively contracts pairs of vertices into a single point to remove one vertex
