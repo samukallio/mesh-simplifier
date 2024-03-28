@@ -674,12 +674,18 @@ void write_mesh(std::ostream& os, indexed_mesh const& mesh)
 int main(int argc, char* argv[])
 {
 	if (argc < 3) {
-		std::cerr << "usage: " << argv[0] << " input.obj output.obj" << std::endl;
+		std::cerr << "usage: " << argv[0] << " input.obj output.obj [percent_vertices_to_keep]" << std::endl;
 		return EXIT_FAILURE;
 	}
 
-	// Ratio of vertices to keep.
 	float ratio = 0.25f;
+
+	if (argc >= 4) {
+		auto ss = std::stringstream(argv[3]);
+		int ratio_percent = 0;
+		ss >> ratio_percent;
+		ratio = std::clamp(ratio_percent, 0, 100) / 100.0f;
+	}
 
 	// Load mesh data.
 	indexed_mesh mesh;
@@ -701,7 +707,7 @@ int main(int argc, char* argv[])
 
 	// Write out simplified mesh.
 	{
-		auto out_file = std::ofstream("mesh_simple.obj");
+		auto out_file = std::ofstream(argv[2]);
 		if (!out_file.is_open()) {
 			std::cerr << "error: unable to open output file '" << argv[1] << "'" << std::endl;
 			return EXIT_FAILURE;
